@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Read Autos</title>
+    <link rel="stylesheet" href="/static/style.css" />
+  </head>
+  <body>
+    <h1>Autos List</h1>
+    <table>
+      <tr>
+        <th>ID</th>
+        <th>Marca</th>
+        <th>Modelo</th>
+        <th>Vendido</th>
+      </tr>
+      {% for auto in autos %}
+      <tr>
+        <td>{{ auto.id }}</td>
+        <td>{{ auto.marca }}</td>
+        <td>{{ auto.modelo }}</td>
+        <td>{{ auto.vendido }}</td>
+      </tr>
+      {% endfor %}
+    </table>
+  </body>
+</html>

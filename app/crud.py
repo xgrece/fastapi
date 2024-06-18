@@ -1,37 +1,23 @@
 from sqlalchemy.orm import Session
 from . import models, schemas
 
-# Crear un auto
 def create_auto(db: Session, auto: schemas.AutoCreate):
-    db_auto = models.Auto(**auto.dict())
-    db.add(db_auto)
-    db.commit()
-    db.refresh(db_auto)
-    return db_auto
+    return models.Auto.create(db, **auto.dict())
 
-# Obtener un auto por ID
 def get_auto(db: Session, auto_id: int):
-    return db.query(models.Auto).filter(models.Auto.id == auto_id).first()
+    return models.Auto.read(db, auto_id)
 
-# Obtener todos los autos
 def get_autos(db: Session, skip: int = 0, limit: int = 10):
-    return db.query(models.Auto).offset(skip).limit(limit).all()
+    return models.Auto.read_all(db, skip, limit)
 
-# Actualizar un auto
 def update_auto(db: Session, auto_id: int, auto: schemas.AutoUpdate):
-    db_auto = db.query(models.Auto).filter(models.Auto.id == auto_id).first()
-    if db_auto is None:
-        return None
-    for key, value in auto.dict().items():
-        setattr(db_auto, key, value)
-    db.commit()
-    db.refresh(db_auto)
-    return db_auto
-
-# Eliminar un auto
-def delete_auto(db: Session, auto_id: int):
-    db_auto = db.query(models.Auto).filter(models.Auto.id == auto_id).first()
+    db_auto = models.Auto.read(db, auto_id)
     if db_auto:
-        db.delete(db_auto)
-        db.commit()
+        return db_auto.update(db, **auto.dict())
+    return None
+
+def delete_auto(db: Session, auto_id: int):
+    db_auto = models.Auto.read(db, auto_id)
+    if db_auto:
+        db_auto.delete(db)
     return db_auto

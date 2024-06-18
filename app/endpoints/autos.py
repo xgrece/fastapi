@@ -1,6 +1,6 @@
 from fastapi import APIRouter, Depends, HTTPException
 from sqlalchemy.orm import Session
-from .. import crud, models, schemas
+from .. import models, schemas
 from ..database import SessionLocal
 
 router = APIRouter()
@@ -16,18 +16,17 @@ def get_db():
 # Crear un auto
 @router.post("/autos/", response_model=schemas.Auto)
 def create_auto(auto: schemas.AutoCreate, db: Session = Depends(get_db)):
-    return crud.create_auto(db=db, auto=auto)
+    return models.Auto.create(db, **auto.dict())
 
 # Obtener todos los autos
 @router.get("/autos/", response_model=list[schemas.Auto])
 def read_autos(skip: int = 0, limit: int = 10, db: Session = Depends(get_db)):
-    autos = crud.get_autos(db, skip=skip, limit=limit)
-    return autos
+    return models.Auto.read_all(db, skip=skip, limit=limit)
 
 # Obtener un auto por ID
 @router.get("/autos/{auto_id}", response_model=schemas.Auto)
 def read_auto(auto_id: int, db: Session = Depends(get_db)):
-    db_auto = crud.get_auto(db, auto_id=auto_id)
+    db_auto = models.Auto.read(db, auto_id)
     if db_auto is None:
         raise HTTPException(status_code=404, detail="Auto not found")
     return db_auto
@@ -35,15 +34,16 @@ def read_auto(auto_id: int, db: Session = Depends(get_db)):
 # Actualizar un auto
 @router.put("/autos/{auto_id}", response_model=schemas.Auto)
 def update_auto(auto_id: int, auto: schemas.AutoUpdate, db: Session = Depends(get_db)):
-    db_auto = crud.update_auto(db, auto_id=auto_id, auto=auto)
+    db_auto = models.Auto.read(db, auto_id)
     if db_auto is None:
         raise HTTPException(status_code=404, detail="Auto not found")
-    return db_auto
+    return db_auto.update(db, **auto.dict())
 
 # Eliminar un auto
 @router.delete("/autos/{auto_id}", response_model=schemas.Auto)
 def delete_auto(auto_id: int, db: Session = Depends(get_db)):
-    db_auto = crud.delete_auto(db, auto_id=auto_id)
+    db_auto = models.Auto.read(db, auto_id)
     if db_auto is None:
         raise HTTPException(status_code=404, detail="Auto not found")
+    db_auto.delete(db)
     return db_auto
