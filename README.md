@@ -61,3 +61,25 @@ AUTO_INCREMENT=8
 COLLATE='utf8mb4_general_ci'
 ENGINE=InnoDB
 ;
+------------
+## Endpoints Principales
+ - GET /: Página de inicio.
+ - GET /create-auto: Página para crear un nuevo auto.
+ - POST /create-auto: Endpoint para enviar datos y crear un auto.
+ - GET /read-autos: Página para leer todos los autos.
+ - POST /update-auto/{id}: Endpoint para actualizar un auto.
+ - POST /delete-auto/{id}: Endpoint para borrar un auto.
+   
+------------
+
+## Estructura del Proyecto
+ - app/: Contiene la lógica principal de la aplicación.
+ - app/main.py: Punto de entrada de la aplicación.
+ - app/crud.py: Funciones CRUD (Crear, Leer, Actualizar, Borrar).
+ - app/models.py: Definición de los modelos de la base de datos.
+ - app/database.py: Configuración de la base de datos.
+ - app/schemas.py: Esquemas de Pydantic para la validación de datos.
+ - app/endpoints/: Contiene los controladores de los endpoints.
+ 	- app/endpoints/autos.py: Endpoints relacionados con los autos.
+ - app/templates/: Contiene las plantillas HTML.
+ - app/static/: Contiene los archivos estáticos como CSS.
