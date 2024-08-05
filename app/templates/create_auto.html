@@ -9,11 +9,28 @@
     <h1>Create a New Auto</h1>
     <form action="/create" method="post">
       <label for="marca">Marca:</label>
-      <input type="text" id="marca" name="marca" required /><br />
+      <select id="marca" name="marca" required>
+        <option value="Toyota">Toyota</option>
+        <option value="Ford">Ford</option>
+        <option value="Chevrolet">Chevrolet</option>
+        <option value="Honda">Honda</option>
+        <option value="BMW">BMW</option>
+        <!-- Añadir más opciones según sea necesario --></select
+      ><br />
+
       <label for="modelo">Modelo:</label>
-      <input type="text" id="modelo" name="modelo" required /><br />
+      <select id="modelo" name="modelo" required>
+        <option value="Corolla">Corolla</option>
+        <option value="Mustang">Mustang</option>
+        <option value="Camaro">Camaro</option>
+        <option value="Civic">Civic</option>
+        <option value="3 Series">3 Series</option>
+        <!-- Añadir más opciones según sea necesario --></select
+      ><br />
+
       <label for="vendido">Vendido:</label>
       <input type="checkbox" id="vendido" name="vendido" /><br />
+
       <button type="submit">Create</button>
     </form>
     {% if message %}
