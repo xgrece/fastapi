@@ -10,14 +10,35 @@
     <form action="/update" method="post">
       <label for="id">ID:</label>
       <input type="number" id="id" name="id" required /><br />
+
       <label for="marca">Marca:</label>
-      <input type="text" id="marca" name="marca" /><br />
+      <select id="marca" name="marca">
+        <option value="">--Seleccionar--</option>
+        <option value="Toyota">Toyota</option>
+        <option value="Ford">Ford</option>
+        <option value="Chevrolet">Chevrolet</option>
+        <option value="Honda">Honda</option>
+        <option value="BMW">BMW</option>
+        <!-- Añadir más opciones según sea necesario --></select
+      ><br />
+
       <label for="modelo">Modelo:</label>
-      <input type="text" id="modelo" name="modelo" /><br />
+      <select id="modelo" name="modelo">
+        <option value="">--Seleccionar--</option>
+        <option value="Corolla">Corolla</option>
+        <option value="Mustang">Mustang</option>
+        <option value="Camaro">Camaro</option>
+        <option value="Civic">Civic</option>
+        <option value="3 Series">3 Series</option>
+        <!-- Añadir más opciones según sea necesario --></select
+      ><br />
+
       <label for="vendido">Vendido:</label>
       <input type="checkbox" id="vendido" name="vendido" /><br />
+
       <button type="submit">Update</button>
     </form>
+
     {% if message %}
     <p>{{ message }}</p>
     {% endif %}
