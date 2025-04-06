@@ -1,4 +1,4 @@
-# Proyecto FastAPI by Valentino Fiori
+# Proyecto FastAPI
 
 ## Librerias
  - pip install fastapi
